@@ -1,0 +1,9 @@
+Package: dksl-1101
+Version: 0.0-1
+Maintainer: vv.lisyak@gmail.com
+Architecture: all
+Section: misc
+Description: NetPing
+ First deb build.
+ Try nomber one.
+

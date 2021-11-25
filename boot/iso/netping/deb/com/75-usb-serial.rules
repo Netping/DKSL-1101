@@ -1,0 +1,15 @@
+SUBSYSTEM=="tty", ATTRS{idVendor}=="1a86", ATTRS{idProduct}=="7523", 
+ATTRS{devpath}=="1.3.3.4.4",  SYMLINK+="dkst1101/COM19"
+SUBSYSTEM=="tty", ATTRS{idVendor}=="1a86", ATTRS{idProduct}=="7523", 
+ATTRS{devpath}=="1.3.3.4.3",  SYMLINK+="dkst1101/COM18"
+SUBSYSTEM=="tty", ATTRS{idVendor}=="1a86", ATTRS{idProduct}=="5523", 
+ATTRS{devpath}=="1.3.3.4.2",  SYMLINK+="dkst1101/COM17"
+SUBSYSTEM=="tty", ATTRS{idVendor}=="1a86", ATTRS{idProduct}=="7523", 
+ATTRS{devpath}=="1.3.3.4.1",  SYMLINK+="dkst1101/COM16"
+SUBSYSTEM=="tty", ATTRS{idVendor}=="1a86", ATTRS{idProduct}=="7523", 
+ATTRS{devpath}=="1.3.3.3.4",  SYMLINK+="dkst1101/COM15"
+SUBSYSTEM=="tty", ATTRS{idVendor}=="1a86", ATTRS{idProduct}=="7523", ATTRS{devpath}=="1.3.3.3.3",  SYMLINK+="dkst1101/COM14"
+SUBSYSTEM=="tty", ATTRS{idVendor}=="1a86", ATTRS{idProduct}=="7523", ATTRS{devpath}=="1.3.3.3.2",  SYMLINK+="dkst1101/COM13"
+SUBSYSTEM=="tty", ATTRS{idVendor}=="1a86", ATTRS{idProduct}=="7523", ATTRS{devpath}=="1.3.3.3.1",  SYMLINK+="dkst1101/COM12"
+SUBSYSTEM=="tty", ATTRS{idVendor}=="1a86", ATTRS{idProduct}=="7523", ATTRS{devpath}=="1.3.3.2",  SYMLINK+="dkst1101/COM11"
+SUBSYSTEM=="tty", ATTRS{idVendor}=="1a86", ATTRS{idProduct}=="7523", ATTRS{devpath}=="1.3.3.1",  SYMLINK+="dkst1101/COM10"

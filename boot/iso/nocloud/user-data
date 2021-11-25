@@ -1,0 +1,69 @@
+#cloud-config
+autoinstall:
+  version: 1
+  locale: en_US.UTF-8
+  refresh-installer:
+    update: no
+  early-commands:
+    - printf 'EARLY COMMANDS'
+    - parted -l /dev/sda
+    - sleep 10
+  keyboard:
+    layout: us
+  timezone: Europe/Moscow
+  network:
+    network:
+      version: 2
+      ethernets:
+        eth0:
+          dhcp4: yes
+          dhcp-identifier: mac  
+  storage:
+    config:
+    - {ptable: gpt, path: /dev/sda, preserve: false, name: '', grub_device: false,
+      type: disk, id: disk-sda}
+    - {device: disk-sda, size: 536870912, wipe: superblock, flag: boot, number: 1,
+      preserve: false, grub_device: true, type: partition, id: partition-0}
+    - {fstype: fat32, volume: partition-0, preserve: false, type: format, id: format-0}
+    - {device: disk-sda, size: 1073741824, wipe: superblock, flag: '', number: 2,
+      preserve: false, grub_device: false, type: partition, id: partition-1}
+    - {fstype: ext4, volume: partition-1, preserve: false, type: format, id: format-1}
+    - {device: disk-sda, size: 32212254720, wipe: superblock, flag: '', number: 3,
+      preserve: false, grub_device: false, type: partition, id: partition-2}
+    - {fstype: ext4, volume: partition-2, preserve: false, type: format, id: format-2}
+    - {device: format-2, path: /, type: mount, id: mount-2}
+    - {device: disk-sda, size: 30599544832, flag: '', number: 4, preserve: false,
+      grub_device: false, type: partition, id: partition-3}
+    - {device: format-1, path: /boot, type: mount, id: mount-1}
+    - {device: format-0, path: /boot/efi, type: mount, id: mount-0}
+  ssh:
+    allow-pw: true
+    install-server: true
+  identity:
+    hostname: dksl-1101
+    password: "$6$tKhGJyWmfCZl$CWmN7WHdoC3CPeRe5WHeHY/h2ncTrSaM7M/Y6z1pL0VogmelODw2XW3.OdrX/kHqd7FtFQnDnenTbvRs/DAtM/"
+    username: visor
+  late-commands:
+    - echo 'visor ALL=(ALL) NOPASSWD:ALL' > /target/etc/sudoers.d/visor
+    - printf 'LATE COMMANDS'
+    - sleep 10
+    - cp /cdrom/netping/deb/com/75-usb-serial.rules /target/etc/udev/rules.d/75-usb-serial.rules
+    - cp /cdrom/netping/deb/com/mcp2210-linux-master /etc/mcp2210-linux-master
+    - curtin in-target --target=/target -- modprobe -r lp
+    - curtin in-target --target=/target -- usermod -aG lp,dialout visor
+    - cp /cdrom/netping/np_version /target/etc/np_version
+#    - curtin in-target --target=/target -- apt install -y /cdrom/netping/deb/com/*.deb
+    - curtin in-target --target=/target -- apt install -y /cdrom/netping/deb/python/*.deb
+    - curtin in-target --target=/target -- apt install -y /cdrom/netping/deb/updates/*.deb
+#    - bash /cdrom/netping/apps.sh
+#    - cp /cdrom/netping/network/73-usb-net-by-mac.link /target/lib/systemd/network/
+#    - mkdir /target/etc/np_scripts
+#    - cp /cdrom/netping/button/* /target/etc/np_scripts/
+#    - mkdir /target/etc/systemd/system/getty@tty2.service.d
+#    - cp /cdrom/netping/button/override.conf /target/etc/systemd/system/getty@tty2.service.d/
+#    - cp /cdrom/netping/button/.bash_login /target/etc/skel/
+#    - cp /cdrom/netping/network/netplan.yaml /target/etc/netplan/
+#    - cp /cdrom/netping/network/grub /target/etc/default/
+#    - curtin in-target --target=/target -- update-grub
+    - printf 'INSTALLATION COMPLETED. Please remove installation media and press Ctrl+Alt+Del' 
+    - sleep 3600
