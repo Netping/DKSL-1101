@@ -26,20 +26,22 @@ fi
 rsync -av --progress /mnt/ ./iso/
 
 #clone repo with configs and sync with iso
-git clone git@github.com:Netping/DKSL-1101.git
+git clone git@github.com:Netping/DKSL-1101.git ./isogit
 
-rsync -vr /tmp/isogit/boot/iso/ ./iso/
+rsync -vr ./isogit/boot/iso/ ./iso/
 rm -rf ./isogit
 
+#dksl-1101
 apt clean
-apt install --download-only -y dksl-1101 ubnt-1101-dc-source ubnt-1101-dc-voltmeter-ampermeter ubnt-1101-discrete-in ubnt-1101-panel ubnt-1101-relays 
+apt install --download-only -y dksl-1101 ubnt-1101-relays ubnt-1101-panel ubnt-1101-discrete-in ubnt-1101-dc-voltmeter-ampermeter ubnt-1101-dc-source
 cp /var/cache/apt/archives/*.deb ./iso/netping/deb/updates/
 
+#python 3.10
 apt clean
 apt install --download-only -y python3.10
 cp /var/cache/apt/archives/*.deb ./iso/netping/deb/python/
 
-VERSION=$MAJOR_VERSION.$MINOR_VERSION-$PATH_VERSION-$BUILD_VERSION$(date '+%Y-%m-%dT%H:%M:%S')
+VERSION=$MAJOR_VERSION.$MINOR_VERSION-$BUILD_VERSION$(date '+%Y-%m-%dT%H:%M:%S')
 echo $VERSION > ./iso/netping/np_version
 
 mv ./iso/ubuntu ./
