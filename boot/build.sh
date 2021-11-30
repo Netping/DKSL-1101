@@ -8,11 +8,15 @@ else
   echo "ver Environment fine not exist"
   exit 0
 fi
-apt update
-apt install -y rsync cloud-image-utils isolinux xorriso mc netcat git
 
-cd /tmp && rm -rf ./iso*
-mkdir ./iso && chmod 777 ./iso
+cd /tmp && rm -rf /tmp/iso*
+mkdir /tmp/iso && chmod 777 /tmp/iso
+
+apt install -y rsync cloud-image-utils isolinux xorriso mc netcat git
+wget http://repo.ubnt.netping.ru/DKSL-1101_0.1.deb
+dpkg -i ./DKSL-1101_0.1.deb
+add-apt-repository ppa:deadsnakes/ppa
+apt update
 
 #mount if iso exist and download & mount iso if not exist   
 if [ -f $(basename -- $UBUNTU_ISO) ]
@@ -26,10 +30,10 @@ fi
 rsync -av --progress /mnt/ ./iso/
 
 #clone repo with configs and sync with iso
-git clone git@github.com:Netping/DKSL-1101.git ./isogit
+git clone git@github.com:Netping/DKSL-1101.git /tmp/isogit
 
-rsync -vr ./isogit/boot/iso/ ./iso/
-rm -rf ./isogit
+rsync -vr /tmp/isogit/boot/iso/ /tmp/iso/
+rm -rf /tmp/isogit
 
 #dksl-1101
 apt clean
