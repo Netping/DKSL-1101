@@ -1,5 +1,6 @@
 Package: dksl-1101
 Version: 0.0-1
+Depends: ubnt-1101-dc-source, ubnt-1101-dc-voltmeter-ampermeter, ubnt-1101-discrete-in, ubnt-1101-panel, ubnt-1101-relays
 Maintainer: vv.lisyak@gmail.com
 Architecture: all
 Section: misc
